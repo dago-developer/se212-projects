@@ -1,29 +1,41 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-// TODO Problem 2 - Write and run test cases and fix the code to match requirements.
+using System;
 
 [TestClass]
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_1()
+    public void TestPriorityQueue_Returns_Highest_Priority()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var pq = new PriorityQueue();
+        pq.Enqueue("A", 1);
+        pq.Enqueue("B", 5);
+        pq.Enqueue("C", 3);
+
+        string result = pq.Dequeue();
+
+        Assert.AreEqual("B", result);
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_2()
+    public void TestPriorityQueue_TieBreaker_Returns_FIFO()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var pq = new PriorityQueue();
+        pq.Enqueue("X", 4);
+        pq.Enqueue("Y", 4);
+        pq.Enqueue("Z", 2);
+
+        string result = pq.Dequeue();
+
+        Assert.AreEqual("X", result);
     }
 
-    // Add more test cases as needed below.
+    [TestMethod]
+    public void TestPriorityQueue_EmptyQueue_ThrowsException()
+    {
+        var pq = new PriorityQueue();
+
+        var ex = Assert.ThrowsException<InvalidOperationException>(() => pq.Dequeue());
+        Assert.AreEqual("The queue is empty.", ex.Message);
+    }
 }
